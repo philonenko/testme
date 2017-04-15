@@ -1,0 +1,326 @@
+/*  === Вывод теста === */
+
+.testme_area {
+}
+
+/*  Форма теста */
+form.testme_form {
+	text-align:left;
+}
+
+/* Заголовок теста */
+.testme_title h3 {}
+
+/* Описание теста */
+.testme_description {}
+
+/* Блок с вопросом и ответами к нему */
+.testme_question {
+padding-bottom: 20px;
+}
+
+/* Текст вопроса */
+.testme_question_text {
+	margin-top:0px;
+	overflow:hidden;
+    padding-bottom: 20px;
+    line-height: 30px;
+    color: #000;
+    font-family: 'Roboto',sans-serif;
+    font-size: 17px;
+}
+
+/* Блок с ответом */
+.testme_answer_block {
+    margin-bottom:10px;
+    margin-left: 18px;   
+}
+
+
+/* Радио-кнопка для выбора ответа */
+.testme_answer {
+	padding-left:20px;
+}
+
+/* Текст ответа */
+.testme_question label {
+    cursor: pointer;
+}
+
+/*Описание перед тестом*/
+.testme_show_test_description{
+
+margin-bottom:30px;
+line-height: 30px;
+font-size: 16px;
+color:#555;
+
+}
+
+/* Параметры кнопки */
+.testme_button {
+    margin-top: 10px;
+    padding: 10px 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background: none repeat scroll 0 0 #00b4f0;
+    font-size: 18px;
+    color: #FFF;
+}
+
+.testme_button:hover {
+
+background:#6ad2f4;
+
+}
+
+/*  === Результаты === */
+
+/* Оболочка, в которую записывается результат */
+#testme_result {
+	border: 2px solid #CCC;
+    padding: 10px;
+}
+
+/* Весь блок с результатами */
+.testme_result_block {
+	margin: 10px;
+}
+
+/* Надпись перед показом результатов */
+.testme_before_results {
+    color: #006666;
+}
+
+/* Заголовок результата */
+.testme_result_title {}
+
+/* Описание результата */
+.testme_result_text {}
+
+/* Картинка */
+.testme_image {}
+
+/* Стили для блоков с кодами для тестов и форумов */
+.testme_code {
+    clear:both;
+    padding-left:10px;
+    padding-bottom: 5px;
+}
+
+.testme_code textarea {
+    height: 80px;
+    width: 98%;
+    margin: 0 10px 10px 0;
+}
+
+
+/*  === Ошибки === */
+
+/* Ошибка, если отвечены не все вопросы */
+.testme_error {
+    border:1px solid red;
+    padding: 10px;
+}
+
+/*  === Ссылка === */
+
+/* ссылка на сайт */
+.testme_backlink {
+    padding-right:30px;
+    padding: 15px 0 0 0;
+    font-size: 80%;
+    text-align:right;
+}
+
+/* ***** Для версии 1.2 *****/
+
+/* Результат теста в баллах */
+.testme_your_score {
+    margin-top:10px;
+    margin-bottom:10px;
+    font-weight: bold;
+}
+
+/* Для незарегистрированных */
+.testme_not_logged {
+    margin-top:15px;
+    padding: 10px;
+    border:1px dashed #CCCCCC;;
+    font-weight: bold;
+    color: #666600;
+}
+
+/* Список вопросов, когда нет права проходить тест */
+.testme_asnwer_list {
+
+}
+
+.testme_asnwer_list li {
+    list-style-position: inside;
+    list-style-type:circle;
+}
+
+.answer-right{
+	border:1px solid #49e042;
+	border-radius:5px;
+        padding-bottom: 3px;
+        margin-left: -1px;
+        padding-left: 18px;
+        padding-top: 5px;
+}
+.answer-false{
+	border:1px solid #e04242;
+	border-radius:5px;
+        padding-bottom: 3px;
+        margin-left: -1px;
+        padding-left: 18px;
+        padding-top: 5px;
+}
+
+.testme_question-true>.testme_question_text:before{
+	content:'';
+	float:left;
+	width:20px;
+	height:20px;
+        margin-right:10px;
+	background:url('images/vse_ok.png') no-repeat 50% 50%;
+        margin-bottom: 1px;
+        margin-top: 3px;
+}
+.testme_question-false>.testme_question_text:before{
+	content:'';
+	float:left;
+	width:20px;
+	height:20px;
+        margin-right:10px;
+	background:url('images/ne_ok.png') no-repeat 50% 50%;
+        margin-bottom: 1px;
+        margin-top: 3px;
+}
+
+.testme_show_test_description > p {
+    background-color: #FBFBFB;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 20px 30px;
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+.testme_answer_block p{
+
+margin-top:-20px;
+margin-left:30px;
+color: #000;
+font-size: 17px;
+
+
+}
+
+
+
+.testme_question_text > .quote {
+    background: none repeat scroll 0 0 #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 10px 30px;
+    font-size: 15px;
+}
+
+
+.print_r{position:absolute;width:500px;top:0;left:0;background:#fff;border:1px solid red; z-index:9999;}
+
+/***Стили для checkbox И Radio***/
+
+
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:18px;
+    height:18px;
+    margin:-1px 15px 0 0;
+    vertical-align:middle;
+    background:url(http://plugin.tw1.ru/wp-content/themes/oge5theme/img/testsprite.png);
+    background-position: 0 0; 
+    cursor:pointer;
+}
+input[type="checkbox"]:checked + label span {
+    background:url(http://plugin.tw1.ru/wp-content/themes/oge5theme/img/testsprite.png);
+    background-position: -18px 0; 
+}
+
+
+
+
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label span {
+    display:inline-block;
+    width:18px;
+    height:18px;
+    margin:-1px 15px 0 0;
+    vertical-align:middle;
+    background:url(http://plugin.tw1.ru/wp-content/themes/oge5theme/img/testsprite.png);
+    background-position: -36px 0; 
+    cursor:pointer;
+}
+input[type="radio"]:checked + label span {
+    background:url(http://plugin.tw1.ru/wp-content/themes/oge5theme/img/testsprite.png);
+    background-position: -54px 0; 
+}
+
+
+/***Стили для открытия/закрытия html кода***/
+.tcode {
+    clear: both;
+}
+ 
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    color: #000;
+    font-family: Tahoma, sans-serif;
+    cursor: pointer;
+    margin-bottom:10px;
+}
+
+.btn:hover{
+
+text-decoration: underline;
+
+}
+ 
+.tcode textarea {
+    height: 50px;
+    margin: 10px 10px 10px 0;
+    width: 98%;
+}
+ 
+.testme_code{ 
+ display: block;   
+}
+ 
+.testme_code input[type=checkbox] {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+ 
+.text1{
+  position: relative;
+  z-index: 1000;
+}
+ 
+.testme_code input[type=checkbox] ~ .text1 {
+    display: none;
+}
+ 
+.testme_code input[type=checkbox]:checked ~ .text1 {
+    display: block;
+}

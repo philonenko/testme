@@ -10,10 +10,6 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
-	$(".testme_edit_one span.testme-icons-edit a").click(function(e){
-		e.preventDefault;
-	});
-
     $(".testme_button").click(function () {
         testme_result_back();
         

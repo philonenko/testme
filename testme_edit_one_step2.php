@@ -8,12 +8,12 @@
 <?php 
 function getTestmeIcons($name){
     return '<span class="testme-icons-edit">
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/bold.png" alt="bold"></a>
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/italics.png" alt="italics"></a>
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/underline.png" alt="underline"></a>
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/photoicon.png" alt="photoicon"></a>
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/piicon.png" alt="piicon"></a>
-        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/quoteicon.png" alt="quoteicon"></a>
+        <a href="#" data-action="bold"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/bold.png" alt="bold"></a>
+        <a href="#" data-action="italics"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/italics.png" alt="italics"></a>
+        <a href="#" data-action="underline"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/underline.png" alt="underline"></a>
+        <a href="#" data-action="photoicon"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/photoicon.png" alt="photoicon"></a>
+        <a href="#" data-action="piicon"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/piicon.png" alt="piicon"></a>
+        <a href="#" data-action="quoteicon"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/quoteicon.png" alt="quoteicon"></a>
     </span>';
 } ?>
                 <?php
@@ -106,6 +106,40 @@ function getTestmeIcons($name){
     }
 
     jQuery(document).ready(function($) {
+
+        function getStyle( clickObj, action ){
+            var siblings = clickObj.parent().siblings();
+
+            $(siblings).each(function(){
+                var attrName = ( $(this).attr('name') ) ? $(this).attr('name') : '';
+
+                if( 'answer_text' == attrName.substr(0, 11) || 'question_text' == attrName.substr(0, 13) ){
+                    // $(this).css( "background-color", "red" )
+                    switch( action ){
+                        case 'bold': $(this).css( "font-weight", "bold" ) ; break;
+                        case 'italics': $(this).css( "font-style", "italic" ) ; break;
+                        case 'underline': $(this).css( "text-decoration", "underline" ) ; break;
+                        case 'quoteicon': $(this).css( "font-style", "oblique" ) ; break;
+                        default: ; break;
+                    }
+                }
+            });
+            // $('.testme_question_block input').parent().css( "background-color", "red" );
+        }
+
+        $("span.testme-icons-edit a").click(function(e){
+            e.preventDefault();
+            var action = $(this).data('action');
+            switch( action ){
+                case 'bold': ;
+                case 'italics': ;
+                case 'underline': ;
+                case 'quoteicon': getStyle($(this), action);break;
+                case 'photoicon': break;
+                case 'piicon': break;
+                default: ; break;
+            }
+        });
 
         $("p.testme_add_question").click(function() {
             var qnum = $('div.testme_question_block').length + 1;

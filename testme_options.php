@@ -10,6 +10,7 @@
         $testme_options_array = array(
             'testme_show_test_title' => FILTER_SANITIZE_STRING,
             'testme_show_test_description' => FILTER_SANITIZE_STRING,
+            'testme_show_test_description_2' => FILTER_SANITIZE_STRING,
             'testme_show_results_notice' => FILTER_SANITIZE_STRING,
             'testme_notice_before_results' => FILTER_SANITIZE_STRING,
             'testme_code_for_forum' => FILTER_SANITIZE_STRING,
@@ -27,7 +28,7 @@
         $testme_options = filter_input_array(INPUT_POST, $testme_options_array);
 
         // yes and no options. crazy old appendix of the first version...
-        $testme_no_array = array('testme_show_test_title', 'testme_show_test_description', 'testme_show_results_notice',
+        $testme_no_array = array('testme_show_test_title', 'testme_show_test_description', 'testme_show_test_description_2', 'testme_show_results_notice',
             'testme_code_for_forum', 'testme_code_for_blog', 'testme_access_reg', 'testme_stat_allow');
         foreach ($testme_no_array as $opt) {
             if ($testme_options[$opt] != "yes") {
@@ -61,15 +62,32 @@
                                 print "checked";
                             }
                             ?> />
-                            <label for="testme_show_test_title">Показывать заголовок теста перед списком вопросов</label></p>
-                        <p><input name="testme_show_test_description" type="checkbox"  id="testme_show_test_description" value="yes"
+                            <label for="testme_show_test_title">Показывать заголовок теста перед списком вопросов</label>
+                        </p>
+
+                        <p>
+                            <input name="testme_show_test_description" type="checkbox"  id="testme_show_test_description" value="yes"
                             <?php
                             if (get_option("testme_show_test_description") == 'yes') {
                                 print
                                         "checked";
                             }
                             ?> />
-                            <label for="testme_show_test_description">Показывать описание теста перед списком вопросов</label></p>
+                            <label for="testme_show_test_description">Показывать описание теста перед списком вопросов</label>
+                        </p>
+                        
+                        <!-- Вывод дополнительного поля в настройказ плагина -->
+                        <p>
+                            <input name="testme_show_test_description_2" type="checkbox"  id="testme_show_test_description_2" value="yes"
+                            <?php
+                            if (get_option("testme_show_test_description_2") == 'yes') {
+                                print
+                                        "checked";
+                            }
+                            ?> />
+                            <label for="testme_show_test_description_2">Показывать описание теста №2 перед списком вопросов</label>
+                        </p>
+
                     </td>
                 </tr>
 

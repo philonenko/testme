@@ -3,7 +3,7 @@
     global $testme_t, $user_ID, $wpdb, $testme_r;
 
     //Получаем данные теста
-    $testme_test_details = $wpdb->get_row("SELECT test_name, test_description, test_display_rez, test_only_reg, test_random_questions, test_random_answers
+    $testme_test_details = $wpdb->get_row("SELECT test_name, test_description, test_description_2, test_display_rez, test_only_reg, test_random_questions, test_random_answers
 FROM {$wpdb->testme_tests} WHERE ID = {$testme_id}");
 
 // -------------------
@@ -49,6 +49,11 @@ FROM {$wpdb->testme_questions} WHERE question_test_relation={$testme_id} ORDER B
 
         if (get_option("testme_show_test_description") == 'yes' && $testme_test_details->test_description != '') {
             print '<div class="testme_show_test_description"><p>' . stripslashes($testme_test_details->test_description) . '</p></div>';
+        }
+
+        // *************************Вывод нового поля в фронтенд
+        if (get_option("testme_show_test_description_2") == 'yes' && $testme_test_details->test_description_2 != '') {
+            print '<div class="testme_show_test_description_2"><p>' . stripslashes($testme_test_details->test_description_2) . '</p></div>';
         }
 
         $i = 0;

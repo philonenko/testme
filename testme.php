@@ -37,6 +37,7 @@ function testme_add_options() {
     global $testme_current_ver;
     add_option('testme_show_test_title', 'no');
     add_option('testme_show_test_description', 'yes');
+    add_option('testme_show_test_description_2', 'yes');
     add_option('testme_show_results_notice', 'yes');
     add_option('testme_notice_before_results', 'Результаты теста:');
     add_option('testme_code_for_forum', 'yes');

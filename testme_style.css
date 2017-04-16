@@ -48,7 +48,8 @@ padding-bottom: 20px;
 }
 
 /*Описание перед тестом*/
-.testme_show_test_description{
+.testme_show_test_description,
+.testme_show_test_description_2{
 
 margin-bottom:30px;
 line-height: 30px;
@@ -200,7 +201,8 @@ background:#6ad2f4;
         margin-top: 3px;
 }
 
-.testme_show_test_description > p {
+.testme_show_test_description > p,
+.testme_show_test_description_2 > p {
     background-color: #FBFBFB;
     border: 1px solid #ccc;
     border-radius: 0px;

@@ -34,7 +34,7 @@
         </div>
         
         <!-- Поле name=test_description_2 -->
-        <div class="postbox testme_show_test_description2">
+        <div class="postbox">
             <h3 class="hndle"><span>Описание теста</span> (публикуется перед списком вопросов)</h3>
             <div class="inside">
                 <p>Небольшое описание теста и картинка.</p>
@@ -59,7 +59,7 @@
 
             </div>
         </div>
-<?php var_dump('<pre>', $testme_test_details, '</pre>') ?>
+
         <div class="postbox" id="titlediv">
             <h3 class="hndle"><span>Тип теста (выбирайте внимательно)</span></h3>
             <div class="inside">

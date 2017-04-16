@@ -1,4 +1,19 @@
 jQuery(document).ready(function ($) {
+
+	// Удаление пустых параграфов
+	var paragraph = $(".testme_area").find('p');
+
+	for (var i = 0; i < paragraph.length; i++) {
+		var text = paragraph[i];
+		if( $(text).text() == '' ){
+			$(text).remove();
+		}
+	}
+
+	$(".testme_edit_one span.testme-icons-edit a").click(function(e){
+		e.preventDefault;
+	});
+
     $(".testme_button").click(function () {
         testme_result_back();
         

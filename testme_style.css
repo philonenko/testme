@@ -50,12 +50,12 @@ padding-bottom: 20px;
 /*Описание перед тестом*/
 .testme_show_test_description,
 .testme_show_test_description_2{
-
-margin-bottom:30px;
-line-height: 30px;
-font-size: 16px;
-color:#555;
-
+    background-color: #FBFBFB;
+    border: 1px solid #ccc;
+    margin-bottom:30px;
+    line-height: 30px;
+    font-size: 16px;
+    color:#555;
 }
 
 /* Параметры кнопки */
@@ -166,18 +166,18 @@ background:#6ad2f4;
 .answer-right{
 	border:1px solid #49e042;
 	border-radius:5px;
-        padding-bottom: 3px;
-        margin-left: -1px;
-        padding-left: 18px;
-        padding-top: 5px;
+    padding-bottom: 3px;
+    margin-left: -1px;
+    padding-left: 18px;
+    padding-top: 5px;
 }
 .answer-false{
 	border:1px solid #e04242;
 	border-radius:5px;
-        padding-bottom: 3px;
-        margin-left: -1px;
-        padding-left: 18px;
-        padding-top: 5px;
+    padding-bottom: 3px;
+    margin-left: -1px;
+    padding-left: 18px;
+    padding-top: 5px;
 }
 
 .testme_question-true>.testme_question_text:before{
@@ -185,26 +185,26 @@ background:#6ad2f4;
 	float:left;
 	width:20px;
 	height:20px;
-        margin-right:10px;
+    margin-right:10px;
 	background:url('images/vse_ok.png') no-repeat 50% 50%;
-        margin-bottom: 1px;
-        margin-top: 3px;
+    margin-bottom: 1px;
+    margin-top: 3px;
 }
 .testme_question-false>.testme_question_text:before{
 	content:'';
 	float:left;
 	width:20px;
 	height:20px;
-        margin-right:10px;
+    margin-right:10px;
 	background:url('images/ne_ok.png') no-repeat 50% 50%;
-        margin-bottom: 1px;
-        margin-top: 3px;
+    margin-bottom: 1px;
+    margin-top: 3px;
 }
 
 .testme_show_test_description > p,
-.testme_show_test_description_2 > p {
-    background-color: #FBFBFB;
-    border: 1px solid #ccc;
+.testme_show_test_description_2 > p,
+.testme_show_test_description > blockquote,
+.testme_show_test_description_2 > blockquote{
     border-radius: 0px;
     padding: 20px 30px;
     text-align: justify;
@@ -212,13 +212,10 @@ background:#6ad2f4;
 }
 
 .testme_answer_block p{
-
-margin-top:-20px;
-margin-left:30px;
-color: #000;
-font-size: 17px;
-
-
+    margin-top:-20px;
+    margin-left:30px;
+    color: #000;
+    font-size: 17px;
 }
 
 
@@ -293,9 +290,7 @@ input[type="radio"]:checked + label span {
 }
 
 .btn:hover{
-
-text-decoration: underline;
-
+    text-decoration: underline;
 }
  
 .tcode textarea {
@@ -305,7 +300,7 @@ text-decoration: underline;
 }
  
 .testme_code{ 
- display: block;   
+    display: block;   
 }
  
 .testme_code input[type=checkbox] {
@@ -315,8 +310,8 @@ text-decoration: underline;
 }
  
 .text1{
-  position: relative;
-  z-index: 1000;
+    position: relative;
+    z-index: 1000;
 }
  
 .testme_code input[type=checkbox] ~ .text1 {

@@ -7,7 +7,7 @@
             <div class="inside">
 <?php 
 function getTestmeIcons($name){
-    return '<span>
+    return '<span class="testme-icons-edit">
         <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/bold.png" alt="bold"></a>
         <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/italics.png" alt="italics"></a>
         <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/underline.png" alt="underline"></a>

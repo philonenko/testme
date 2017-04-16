@@ -5,7 +5,17 @@
 
             <h3 class="hndle"><span>Вопросы и варианты ответов на них</span></h3>
             <div class="inside">
-
+<?php 
+function getTestmeIcons($name){
+    return '<span>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/bold.png" alt="bold"></a>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/italics.png" alt="italics"></a>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/underline.png" alt="underline"></a>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/photoicon.png" alt="photoicon"></a>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/piicon.png" alt="piicon"></a>
+        <a href="#"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/quoteicon.png" alt="quoteicon"></a>
+    </span>';
+} ?>
                 <?php
                 if ($testme_test_details->test_type == 'abc') {
                     print "<p>В зеленом поле напишите букву (цифру), которая обозначит результат. Можно к одному ответу написать несколько букв, в этом случае их надо писать через запятую без пробелов. Например, <em>а,б,г</em> или <em>a,d</em> или <em>2,4,5</em>.</p>";
@@ -23,10 +33,12 @@
                     foreach ($testme_questions as $question) {
                         $i++;
 						if($question->question_multiple==true)$cheked="checked"; else $cheked="";
+                        $questionName = 'question_text_old['. $question->ID .']';
                         print '<div class="testme_question_block" id="testme_q_old-'.$question->ID.'">'
                                 . '<p><strong>Вопрос '.$i.':</strong> <input type="text" name="question_text_old['.$question->ID.']" '
                                 . 'value="'.stripcslashes(htmlspecialchars($question->question_text)).'"
-                                style="width:80%;font-weight:bold;" /><br/><label><input type="checkbox" '.$cheked.'  name="multiple_old['.$question->ID.']" value="1" /><small>Несколько ответов</small></label></p>';
+                                style="width:70%;font-weight:bold;" />'. getTestmeIcons($questionName) .'<br/>
+                                <label><input type="checkbox" '.$cheked.'  name="multiple_old['.$question->ID.']" value="1" /><small>Несколько ответов</small></label></p>';
 
                         //Получаем список ответов для каждого вопроса
                         $testme_answers = $wpdb->get_results(" SELECT ID, answer_points, answer_text FROM " . $wpdb->testme_answers . "
@@ -34,10 +46,13 @@
 
                         if ($testme_answers) {
                             foreach ($testme_answers as $answer) {
+                                $answerName = 'answer_text_old['. $answer->ID .']';
                                 print '<p><input type="text" size="5" name="answer_points_old['.$answer->ID.']" value="'.$answer->answer_points.'"
                                 style="background-color:#e7ffe7" />
-                                <input type="text" name="answer_text_old['.$answer->ID.']" value="'.stripcslashes(htmlspecialchars($answer->answer_text)).'"
-                                style="width:60%;" /></p>';
+                                <input type="text" name="'. $answerName .'" value="'.stripcslashes(htmlspecialchars($answer->answer_text)).'"
+                                style="width:60%;" />'
+                                . getTestmeIcons($answerName) 
+                                .'</p>';
                             }
                         }
 
@@ -76,11 +91,14 @@
 
     </div>
 </form>
+<img src="" alt="">
+
 
 <script type="text/javascript">
 
     function testme_add_answer_q_old(q_id) {
         var anum = jQuery("#testme_q_old-" + q_id + " p.testme_answer_for_old").length + 1;
+
         jQuery("#testme_add_answer-" + q_id).before("<p class=\"testme_answer_for_old\"><input type=\"text\" size=\"5\" name=\"answer_points_for_old[" + q_id + "][" + anum + "]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_for_old[" + q_id + "][" + anum + "]\"  style=\"width:60%;\" /></p>");
         //$('div.testme_question_block:eq(0)').css('border','3px solid black');
         //alert("#testme_add_answer-"+q_id+" "+anum);

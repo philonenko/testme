@@ -6,7 +6,7 @@
             <h3 class="hndle"><span>Вопросы и варианты ответов на них</span></h3>
             <div class="inside">
 <?php 
-function getTestmeIcons($name){
+function getTestmeIcons(){
     return '<span class="testme-icons-edit">
         <a href="#" data-action="bold"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/bold.png" alt="bold"></a>
         <a href="#" data-action="italics"><img src="'. WP_PLUGIN_URL .'/testme/images/icons/italics.png" alt="italics"></a>
@@ -37,7 +37,7 @@ function getTestmeIcons($name){
                         print '<div class="testme_question_block" id="testme_q_old-'.$question->ID.'">'
                                 . '<p><strong>Вопрос '.$i.':</strong> <input type="text" name="question_text_old['.$question->ID.']" '
                                 . 'value="'.stripcslashes(htmlspecialchars($question->question_text)).'"
-                                style="width:70%;font-weight:bold;" />'. getTestmeIcons($questionName) .'<br/>
+                                style="width:70%;font-weight:bold;" />'. getTestmeIcons() .'<br/>
                                 <label><input type="checkbox" '.$cheked.'  name="multiple_old['.$question->ID.']" value="1" /><small>Несколько ответов</small></label></p>';
 
                         //Получаем список ответов для каждого вопроса
@@ -51,7 +51,7 @@ function getTestmeIcons($name){
                                 style="background-color:#e7ffe7" />
                                 <input type="text" name="'. $answerName .'" value="'.stripcslashes(htmlspecialchars($answer->answer_text)).'"
                                 style="width:60%;" />'
-                                . getTestmeIcons($answerName) 
+                                . getTestmeIcons() 
                                 .'</p>';
                             }
                         }
@@ -114,18 +114,32 @@ function getTestmeIcons($name){
                 var attrName = ( $(this).attr('name') ) ? $(this).attr('name') : '';
 
                 if( 'answer_text' == attrName.substr(0, 11) || 'question_text' == attrName.substr(0, 13) ){
-                    // $(this).css( "background-color", "red" )
+
                     switch( action ){
-                        case 'bold': $(this).css( "font-weight", "bold" ) ; break;
-                        case 'italics': $(this).css( "font-style", "italic" ) ; break;
-                        case 'underline': $(this).css( "text-decoration", "underline" ) ; break;
-                        case 'quoteicon': $(this).css( "font-style", "oblique" ) ; break;
+                        case 'bold': $(this).css( "font-weight", "bold" ); setBlockquote($(this), action); break;
+                        case 'italics': $(this).css( "font-style", "italic" ); setBlockquote($(this), action); break;
+                        case 'underline': $(this).css( "text-decoration", "underline" ); setBlockquote($(this), action); break;
+                        case 'quoteicon': setBlockquote($(this), action); break;
                         default: ; break;
                     }
                 }
             });
-            // $('.testme_question_block input').parent().css( "background-color", "red" );
         }
+
+        function setBlockquote(clickObj, action){
+            var currentValue = clickObj.val();
+            var select = clickObj.selectionStart;
+            console.log(currentValue);
+            // currentValue.replace('<blockquote>', );
+            /*switch( action ){
+                case 'bold': clickObj.val('<strong>'+ currentValue +'</strong>'); break;
+                case 'italics': clickObj.val('<em>'+ currentValue +'</em>'); break;
+                case 'underline': clickObj.val('<span style="text-decoration: underline;">'+ currentValue +'</span>'); break;
+                case 'quoteicon': clickObj.val('<blockquote>'+ currentValue +'</blockquote>'); break;
+            }*/
+        }
+
+        function getPhoto(){}
 
         $("span.testme-icons-edit a").click(function(e){
             e.preventDefault();
@@ -135,7 +149,7 @@ function getTestmeIcons($name){
                 case 'italics': ;
                 case 'underline': ;
                 case 'quoteicon': getStyle($(this), action);break;
-                case 'photoicon': break;
+                case 'photoicon': getPhoto(); break;
                 case 'piicon': break;
                 default: ; break;
             }
@@ -156,6 +170,11 @@ function getTestmeIcons($name){
             //alert(anum);
             return false;
         });
+
+        /*$("#post").submit(function(){
+            console.log($(this));
+            return false;
+        });*/
 
 
     });

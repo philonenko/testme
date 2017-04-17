@@ -70,6 +70,7 @@ WHERE ID = " . $testme_id);
                 'question_result_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_text_for_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'answer_class_for_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_for_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_style_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
@@ -110,6 +111,7 @@ WHERE ID = " . $testme_id);
                     } else {
                         //-- новые ответы к старым вопросам
                         if (isset($test_data['answer_text_for_old'][$num])) {
+
                             foreach ($test_data['answer_text_for_old'][$num] as $a_num => $answer) {
                                 $num = intval($num);
 
@@ -118,10 +120,11 @@ WHERE ID = " . $testme_id);
                                 } else {
                                     // Получаем баллы
                                     $points = testme_step2_get_clear_points($test_data['answer_points_for_old'][$num][$a_num]);
+                                    $class = $test_data['answer_class_for_old'][$num][$a_num];
 
                                     // Записываем новые данные
                                     $wpdb->insert($wpdb->testme_answers, array(
-                                        "answer_text" => $answer, "answer_points" => $points, "answer_question_relation" => $num), array('%s', '%s', '%d')
+                                        "answer_text" => $answer, "answer_class" => $class, "answer_points" => $points, "answer_question_relation" => $num), array('%s', '%s', '%d')
                                     );
                                 }
                             }

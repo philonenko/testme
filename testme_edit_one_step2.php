@@ -29,7 +29,7 @@ function getTestmeIcons(){
                                 .'<p><strong>Вопрос '.$i.':</strong> <input type="text" name="question_text_old['.$question->ID.']" '
                                 .'value="'.stripcslashes(htmlspecialchars($question->question_text)).'"
                                 style="width:70%;" class="'. $question->question_class .'"/>'. getTestmeIcons() 
-                                .'<input type="hidden" name="question_text_style_old['.$question->ID.']" value="'. $answer->answer_class .'" /><br/>
+                                .'<input type="hidden" name="question_text_style_old['.$question->ID.']" value="'. $question->question_class .'" /><br/>
                                 <label><input type="checkbox" '.$cheked.'  name="multiple_old['.$question->ID.']" value="1" /><small>Несколько ответов</small></label></p>';
 
                         //Получаем список ответов для каждого вопроса
@@ -50,7 +50,7 @@ function getTestmeIcons(){
 
                         print '<p class="testme_add_answer_old" id="testme_add_answer-'.$question->ID.'"><a href="#" onclick="testme_add_answer_q_old('.$question->ID.');return false;" >Новый ответ</a></p>';
                         print '</div>';
-                        print '<p class="testme_answer"><label for="question_result_old['. $answer->ID .']">Решение: <input type="text" name="question_result_old['. $answer->ID .']" value="'.stripcslashes(htmlspecialchars($question->question_result)).'" style="width:60%;" placeholder="example.com" /></label></p>';
+                        print '<p class="testme_answer"><label for="question_result_old['. $question->ID .']">Решение: <input type="text" name="question_result_old['. $question->ID .']" value="'.stripcslashes(htmlspecialchars($question->question_result)).'" style="width:60%;" placeholder="example.com" /></label></p>';
                     }
                 }
 
@@ -109,13 +109,28 @@ function getTestmeIcons(){
         var anum = jQuery("#testme_q_old-" + q_id + " p.testme_answer_for_old").length + 1;
         var buttonsIcon = '<?php echo getTestmeIcons(); ?>';
 
-        jQuery("#testme_add_answer-" + q_id).before("<p class=\"testme_answer_for_old\"><input type=\"text\" size=\"5\" name=\"answer_points_for_old[" + q_id + "][" + anum + "]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_for_old[" + q_id + "][" + anum + "]\"  style=\"width:60%;\" />"+ buttonsIcon +"</p>");
+        jQuery("#testme_add_answer-" + q_id).before("<p class=\"testme_answer_for_old\"><input type=\"text\" size=\"5\" name=\"answer_points_for_old[" + q_id + "][" + anum + "]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_for_old[" + q_id + "][" + anum + "]\"  style=\"width:60%;\" />"+ buttonsIcon +"<input type=\"hidden\" name=\"answer_class_for_old[" + q_id + "][" + anum + "]\" value=\"\" /></p>");
         //$('div.testme_question_block:eq(0)').css('border','3px solid black');
         //alert("#testme_add_answer-"+q_id+" "+anum);
         return false;
     }
 
     jQuery(document).ready(function($) {
+
+
+        $("body").on("click", "span.testme-icons-edit input[type='image']" ,function(e){
+            e.preventDefault();
+            var action = $(this).data('action');
+            switch( action ){
+                case 'bold': ;
+                case 'italics': ;
+                case 'underline': ;
+                case 'quoteicon': getStyle($(this), action);break;
+                case 'photoicon': getPhoto(); break;
+                case 'piicon': break;
+                default: ; break;
+            }
+        });
 
         function getStyle( clickObj, action ){
             var siblings = clickObj.parent().siblings();
@@ -125,17 +140,20 @@ function getTestmeIcons(){
 
                 if( 'answer_text' == attrName.substr(0, 11) || 'question_text' == attrName.substr(0, 13) ){
 
+                    var hiddenSiblings = $(this).siblings('input[type="hidden"]');
+
                     switch( action ){
-                        case 'bold': $(this).toggleClass( "testme-bold" ); break;
-                        case 'italics': $(this).toggleClass( "testme-italic" ); break;
-                        case 'underline': $(this).toggleClass( "testme-underline" ); break;
+                        case 'bold': 
+                            $(this).toggleClass( "testme-bold" );
+                            $(hiddenSiblings).val( $(this).attr('class') ); break;
+                        case 'italics': 
+                            $(this).toggleClass( "testme-italic" );
+                            $(hiddenSiblings).val( $(this).attr('class') ); break;
+                        case 'underline': 
+                            $(this).toggleClass( "testme-underline" );
+                            $(hiddenSiblings).val( $(this).attr('class') ); break;
                         case 'quoteicon': setBlockquote($(this), action); break;
                         default: ; break;
-                    }
-
-                    if( $(this).attr('type') == 'hidden'){
-                        $(this).val( $(this).attr('class') );
-                        // console.log($(this).val());
                     }
                 }
 
@@ -163,39 +181,10 @@ function getTestmeIcons(){
 
         function getPhoto(){}
 
-        function getAction(){
-            $(this).click(function(e){
-                e.preventDefault();
-                var action = $(this).data('action');
-                switch( action ){
-                    case 'bold': ;
-                    case 'italics': ;
-                    case 'underline': ;
-                    case 'quoteicon': getStyle($(this), action);break;
-                    case 'photoicon': getPhoto(); break;
-                    case 'piicon': break;
-                    default: ; break;
-                }
-            });
-        }
-        $("span.testme-icons-edit input[type='image']").click(function(e){
-            e.preventDefault();
-            var action = $(this).data('action');
-            switch( action ){
-                case 'bold': ;
-                case 'italics': ;
-                case 'underline': ;
-                case 'quoteicon': getStyle($(this), action);break;
-                case 'photoicon': getPhoto(); break;
-                case 'piicon': break;
-                default: ; break;
-            }
-        });
-
         $("p.testme_add_question").click(function() {
             var qnum = $('div.testme_question_block').length + 1;
             var buttonsIcon = '<?php echo getTestmeIcons(); ?>';
-            $(this).before("<div class=\"testme_question_block\" id=\"testme_q_new-" + qnum + "\"><p><strong>Вопрос " + qnum + ":</strong> <input type=\"text\" name=\"question_text_new[" + qnum + "]\" style=\"width:70%;\" />"+ buttonsIcon +"<br/><label><input type=\"checkbox\" name=\"multiple_new[" + qnum + "]\" value=\"1\" /><small>Несколько ответов</small></label></p><p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + qnum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + qnum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"</p><p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + qnum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + qnum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"</p> <p class=\"testme_add_answer\"><a href=\"#\">Новый ответ</a></p></div>");
+            $(this).before("<div class=\"testme_question_block\" id=\"testme_q_new-" + qnum + "\"><p><strong>Вопрос " + qnum + ":</strong> <input type=\"text\" name=\"question_text_new[" + qnum + "]\" style=\"width:70%;\" />"+ buttonsIcon +"<input type=\"hidden\" name=\"question_text_style_new[" + qnum + "]\" value=\"\" /><br/><label><input type=\"checkbox\" name=\"multiple_new[" + qnum + "]\" value=\"1\" /><small>Несколько ответов</small></label></p><p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + qnum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + qnum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"<input type=\"hidden\" name=\"answer_text_style_new[" + qnum + "][]\" /></p><p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + qnum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + qnum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"<input type=\"hidden\" name=\"answer_text_style_new[" + qnum + "][]\" /></p> <p class=\"testme_add_answer\"><a href=\"#\">Новый ответ</a></p><p class=\"testme_answer\"><label for=\"question_result_new[" + qnum + "]\">Решение: <input type=\"text\" name=\"question_result_new[" + qnum + "]\" style=\"width:60%;\" placeholder=\"example.com\" /></label></p></div>");
             return false;
         });
 
@@ -204,7 +193,7 @@ function getTestmeIcons(){
             var anum = $(this).parent('div.testme_question_block').index('div.testme_question_block') + 1;
             var buttonsIcon = '<?php echo getTestmeIcons(); ?>';
             //$(this).parent('div.testme_question_block').css('border','3px solid black');
-            $(this).before("<p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + anum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + anum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"</p>");
+            $(this).before("<p class=\"testme_answer\"><input type=\"text\" size=\"5\" name=\"answer_points_new[" + anum + "][]\" style=\"background-color:#e7ffe7\" /> <input type=\"text\" name=\"answer_text_new[" + anum + "][]\"  style=\"width:60%;\" />"+ buttonsIcon +"<input type=\"hidden\" name=\"answer_text_style_new[" + anum + "][]\" /></p>");
             //$('div.testme_question_block:eq(0)').css('border','3px solid black');
             //alert(anum);
             return false;

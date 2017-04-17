@@ -86,6 +86,9 @@ function testme_add_tables() {
     $sql = "CREATE TABLE " . $wpdb->testme_questions . " (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `question_text` text,
+
+  `question_class` text,
+
   `question_test_relation` int(10) DEFAULT NULL,
   `question_multiple` boolean DEFAULT 0,
   PRIMARY KEY (`ID`)
@@ -95,6 +98,9 @@ function testme_add_tables() {
     $sql = "CREATE TABLE " . $wpdb->testme_answers . " (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `answer_text` text,
+
+  `answer_class` text,
+
   `answer_points` varchar(10) DEFAULT NULL,
   `answer_question_relation` int(10) DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -320,8 +326,25 @@ function testme_scripts() {
     wp_localize_script('testme', 'testme_aj', array(
         'ajax_url' => admin_url('admin-ajax.php', (is_ssl() ? 'https' : 'http'))
     ));
+
+    if( is_admin() ){
+      if ( ! did_action( 'wp_enqueue_media' ) ) {
+        wp_enqueue_media();
+      }
+      wp_enqueue_script('admin', plugins_url('testme/js/admin.js'), array('jquery'), '1.1', true);
+    }
+}
+
+add_action('wp_enqueue_scripts', 'testme_admin_scripts');
+
+function testme_admin_scripts() {
+
+      if ( ! did_action( 'wp_enqueue_media' ) ) {
+        wp_enqueue_media();
+      }
+
+      wp_enqueue_script('admin', plugins_url('testme/js/admin.js'), array('jquery'), '1.4', true);
 }
 
 $testme_t = 'PGRpdiBjbGFzcz0idGVzdG1lX2JhY2tsaW5rIj4mIzEwNTc7JiMxMDg3OyYjMTA4NjsmIzEwODU7JiMxMDg5OyYjMTA4NjsmIzEwODg7ICYjMTA4NzsmIzEwODM7JiMxMDcyOyYjMTA3NTsmIzEwODA7JiMxMDg1OyYjMTA3Mjs6IDxhIGhyZWY9Imh0dHA6Ly90cmlra3kucnUiIHRhcmdldD0iX2JsYW5rIiBmb2xsb3c9ImRvZm9sbG93Ij4mIzEwNTg7JiMxMDc3OyYjMTA4OTsmIzEwOTA7JiMxMDk5OyAmIzEwNzY7JiMxMDgzOyYjMTEwMzsgJiMxMDc2OyYjMTA3NzsmIzEwNzQ7JiMxMDg2OyYjMTA5NTsmIzEwNzc7JiMxMDgyOzwvYT48L2Rpdj4=';
 $testme_r = 'PGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0idGVzdG1lX3JlZyIgdmFsdWU9InlvdXJfdGVzdCIgLz4=';
-

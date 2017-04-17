@@ -4,6 +4,18 @@
 	height: 16px;
 }
 
+.testme-bold{
+	font-weight: bold;
+}
+
+.testme-italic{
+	font-style: italic;
+}
+
+.testme-underline{
+	text-decoration: underline;
+}
+
 .testme_title {
 	width:70%;
 	font-weight:bold;
@@ -24,7 +36,11 @@
 
 .testme_edit_one span.testme-icons-edit{
 	position: relative;
-	bottom: -9px;
+	bottom: -12px;
+}
+
+.testme_edit_one span.testme-icons-edit input[type="image"]{
+	margin: 0;
 }
 
 .testme_edit_menu {

@@ -63,8 +63,10 @@ WHERE ID = " . $testme_id);
 
             $test_data = filter_input_array(INPUT_POST, array(
                 'answer_text_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'answer_text_style_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'multiple_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'question_text_style_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_text_for_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_for_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
@@ -85,9 +87,10 @@ WHERE ID = " . $testme_id);
                     } else {
                         // Получаем баллы
                         $points = testme_step2_get_clear_points($test_data['answer_points_old'][$num]);
+                        $answer_class = testme_step2_get_clear_points($test_data['answer_text_style_old'][$num]);
 
                         // Записываем новые данные
-                        $wpdb->update($wpdb->testme_answers, array("answer_text" => $answer, "answer_points" => $points), array("ID" => $num));
+                        $wpdb->update($wpdb->testme_answers, array("answer_text" => $answer, "answer_class"=>$answer_class, "answer_points" => $points), array("ID" => $num));
                     }
                 }
             }
@@ -120,9 +123,10 @@ WHERE ID = " . $testme_id);
                             }
                         }
                         // сам вопрос
-						if(isset($test_data['multiple_old'][$num]))$multiple=true; else $multiple=false;
-					
-                        $wpdb->update($wpdb->testme_questions, array("question_text" => $question, "question_multiple" => $multiple), array("ID" => $num));
+                        if(isset($test_data['multiple_old'][$num]))$multiple=true; else $multiple=false;
+						$question_class = $test_data['question_text_style_old'][$num];
+					   
+                        $wpdb->update($wpdb->testme_questions, array("question_text" => $question, 'question_class' => $question_class, "question_multiple" => $multiple), array("ID" => $num));
                         
                     }
                 }

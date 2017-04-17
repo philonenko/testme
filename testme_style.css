@@ -1,5 +1,15 @@
 /*  === Вывод теста === */
+.testme-bold{
+    font-weight: bold;
+}
 
+.testme-italic{
+    font-style: italic;
+}
+
+.testme-underline{
+    text-decoration: underline;
+}
 .testme_area {
 }
 

@@ -6,7 +6,7 @@
             <div class="inside">
 
                 <?php
-// Скрипты для подгрузки
+                // Скрипты для подгрузки
                 wp_enqueue_script('common');
                 if (function_exists('add_thickbox')) {
                     add_thickbox();

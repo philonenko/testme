@@ -67,11 +67,15 @@ WHERE ID = " . $testme_id);
                 'multiple_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_style_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
+                'question_result_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_text_for_old' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_for_old' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY),
                 'question_text_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'question_text_style_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'question_result_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_text_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
+                'answer_text_style_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'multiple_new' => array('filter' => FILTER_SANITIZE_MAGIC_QUOTES, 'flags' => FILTER_REQUIRE_ARRAY),
                 'answer_points_new' => array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY)
                     )
@@ -87,7 +91,8 @@ WHERE ID = " . $testme_id);
                     } else {
                         // Получаем баллы
                         $points = testme_step2_get_clear_points($test_data['answer_points_old'][$num]);
-                        $answer_class = testme_step2_get_clear_points($test_data['answer_text_style_old'][$num]);
+                        $answer_class = $test_data['answer_text_style_old'][$num];
+                        // $question_result = $test_data['question_result_old'][$num];
 
                         // Записываем новые данные
                         $wpdb->update($wpdb->testme_answers, array("answer_text" => $answer, "answer_class"=>$answer_class, "answer_points" => $points), array("ID" => $num));
@@ -98,8 +103,7 @@ WHERE ID = " . $testme_id);
             if (isset($test_data['question_text_old'])) {
                 foreach ($test_data['question_text_old'] as $num => $question) {
                     $num = intval($num);
-					
-
+					$question_result = $test_data['question_result_old'][$num];
                     if ($question == "") {
                         $wpdb->delete($wpdb->testme_answers, array('answer_question_relation' => $num));
                         $wpdb->delete($wpdb->testme_questions, array('ID' => $num));
@@ -126,7 +130,7 @@ WHERE ID = " . $testme_id);
                         if(isset($test_data['multiple_old'][$num]))$multiple=true; else $multiple=false;
 						$question_class = $test_data['question_text_style_old'][$num];
 					   
-                        $wpdb->update($wpdb->testme_questions, array("question_text" => $question, 'question_class' => $question_class, "question_multiple" => $multiple), array("ID" => $num));
+                        $wpdb->update($wpdb->testme_questions, array("question_text" => $question, 'question_class' => $question_class, "question_result" => $question_result, "question_multiple" => $multiple), array("ID" => $num));
                         
                     }
                 }
@@ -136,16 +140,18 @@ WHERE ID = " . $testme_id);
 
                 foreach ($test_data['question_text_new'] as $num => $value) {
                     $num = intval($num);
-
+                    $question_class = $test_data['question_text_style_new'][$num];
+                    $question_result = $test_data['question_result_new'][$num];
                     //вопрос
                     if ($value != '') {
 						if(isset($test_data['multiple_new'][$num]))$multiple=true; else $multiple=false;
-                        $wpdb->insert($wpdb->testme_questions, array("question_text" => $value, "question_test_relation" => $testme_id, "question_multiple" => $multiple), array('%s', '%d'));
+                        $wpdb->insert($wpdb->testme_questions, array("question_text" => $value, "question_class" => $question_class, "question_result" => $question_result, "question_test_relation" => $testme_id, "question_multiple" => $multiple), array('%s', '%s', '%s', '%d'));
 
                         $testme_question_id = $wpdb->insert_id;
 
                         // ответы
                         $testme_answer_code = $test_data['answer_text_new'][$num];
+                        $answer_classes = $test_data['answer_text_style_new'][$num];
 
                         $testme_points_code = $test_data['answer_points_new'][$num];
                         foreach ($testme_answer_code as $num_ans => $answer_value) {
@@ -154,9 +160,10 @@ WHERE ID = " . $testme_id);
                             if ($answer_value != '') {
                                 //обработка пойнтов
                                 $points = testme_step2_get_clear_points($testme_points_code[$num_ans]);
+                                $answer_class = $answer_classes[$num_ans];
 
                                 $wpdb->insert($wpdb->testme_answers, array(
-                                    "answer_text" => $answer_value, "answer_points" => $points, "answer_question_relation" => $testme_question_id), array('%s', '%s', '%d')
+                                    "answer_text" => $answer_value, "answer_class" => $answer_class,  "answer_points" => $points, "answer_question_relation" => $testme_question_id), array('%s', '%s', '%s', '%d')
                                 );
                             }
                         }

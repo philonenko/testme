@@ -16,7 +16,7 @@ function getTestmeIcons(){
                 print "<p>Чтобы удалить вопрос или вариант ответа, просто удалите соотвествующий текст.</p>";
 
                 //Получаем список уже имеющихся вопросов
-                $testme_questions = $wpdb->get_results(" SELECT ID, question_text, question_multiple FROM " . $wpdb->testme_questions . "
+                $testme_questions = $wpdb->get_results(" SELECT ID, question_text, question_class, question_result, question_multiple FROM " . $wpdb->testme_questions . "
                                                     WHERE question_test_relation = {$testme_id} ORDER BY ID");
 
                 $i = 0;
@@ -28,12 +28,12 @@ function getTestmeIcons(){
                         print '<div class="testme_question_block" id="testme_q_old-'.$question->ID.'">'
                                 .'<p><strong>Вопрос '.$i.':</strong> <input type="text" name="question_text_old['.$question->ID.']" '
                                 .'value="'.stripcslashes(htmlspecialchars($question->question_text)).'"
-                                style="width:70%;" />'. getTestmeIcons() 
-                                .'<input type="hidden" name="question_text_style_old['.$answer->ID.']" value="" /><br/>
+                                style="width:70%;" class="'. $question->question_class .'"/>'. getTestmeIcons() 
+                                .'<input type="hidden" name="question_text_style_old['.$question->ID.']" value="'. $answer->answer_class .'" /><br/>
                                 <label><input type="checkbox" '.$cheked.'  name="multiple_old['.$question->ID.']" value="1" /><small>Несколько ответов</small></label></p>';
 
                         //Получаем список ответов для каждого вопроса
-                        $testme_answers = $wpdb->get_results(" SELECT ID, answer_points, answer_text FROM " . $wpdb->testme_answers . "
+                        $testme_answers = $wpdb->get_results(" SELECT ID, answer_points, answer_text, answer_class FROM " . $wpdb->testme_answers . "
                                                             WHERE answer_question_relation = {$question->ID} ORDER BY ID");
 
                         if ($testme_answers) {
@@ -41,16 +41,16 @@ function getTestmeIcons(){
                                 $answerName = 'answer_text_old['. $answer->ID .']';
                                 print '<p><input type="text" size="5" name="answer_points_old['.$answer->ID.']" value="'.$answer->answer_points.'"
                                 style="background-color:#e7ffe7" />
-                                <input type="text" name="'. $answerName .'" value="'.stripcslashes(htmlspecialchars($answer->answer_text)).'"
-                                style="width:60%;" />'
+                                <input type="text" name="'. $answerName .'" value="'.stripcslashes(htmlspecialchars($answer->answer_text)).'" style="width:60%;" class="'. $answer->answer_class .'" />'
                                 . getTestmeIcons()
-                                .'<input type="hidden" name="answer_text_style_old['.$answer->ID.']" value="" />' 
+                                .'<input type="hidden" name="answer_text_style_old['.$answer->ID.']" value="'. $answer->answer_class .'" />' 
                                 .'</p>';
                             }
                         }
 
                         print '<p class="testme_add_answer_old" id="testme_add_answer-'.$question->ID.'"><a href="#" onclick="testme_add_answer_q_old('.$question->ID.');return false;" >Новый ответ</a></p>';
                         print '</div>';
+                        print '<p class="testme_answer"><label for="question_result_old['. $answer->ID .']">Решение: <input type="text" name="question_result_old['. $answer->ID .']" value="'.stripcslashes(htmlspecialchars($question->question_result)).'" style="width:60%;" placeholder="example.com" /></label></p>';
                     }
                 }
 
@@ -61,7 +61,7 @@ function getTestmeIcons(){
                         <div class="testme_question_block" id="testme_q_new-<?php print $i; ?>">
                             <p>
                                 <strong>Вопрос <?php print $i; ?>:</strong> <input type="text" name="question_text_new[<?php print $i; ?>]" style="width:70%;" />
-                                <input type="hidden" name="question_text_style_new[<?php print $i; ?>][]" value="" />
+                                <input type="hidden" name="question_text_style_new[<?php print $i; ?>]" value="" />
                                 <?php echo getTestmeIcons(); ?>
                                 <br/>
                                 <label><input type="checkbox" name="multiple_new[<?php print $i; ?>]" value="1" /><small>Несколько ответов<small></label>
@@ -80,8 +80,8 @@ function getTestmeIcons(){
                             </p> 
                             <p class="testme_add_answer"><a href="#">Новый ответ</a></p>
                             <p class="testme_answer">
-                                <label for="">Решение: <input type="text" name="result_text_new[<?php print $i; ?>][]"  style="width:60%;" /> </label>
-                            </p> 
+                                <label for="">Решение: <input type="text" name="question_result_new[<?php print $i; ?>]"  style="width:60%;" placeholder="example.com" /> </label>
+                            </p>
                         </div>
                         <?php
                     }

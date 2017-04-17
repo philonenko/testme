@@ -88,6 +88,7 @@ function testme_add_tables() {
   `question_text` text,
 
   `question_class` text,
+  `question_result` text,
 
   `question_test_relation` int(10) DEFAULT NULL,
   `question_multiple` boolean DEFAULT 0,

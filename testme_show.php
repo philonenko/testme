@@ -20,7 +20,7 @@ FROM {$wpdb->testme_tests} WHERE ID = {$testme_id}");
         echo '<input type="hidden" name="testme_reg" value="' . get_option("testme_rcode") . '" />';
     }
 
-    $testme_all_question = $wpdb->get_results("SELECT ID, question_text, question_class, question_multiple
+    $testme_all_question = $wpdb->get_results("SELECT ID, question_text, question_class, question_result, question_multiple
 FROM {$wpdb->testme_questions} WHERE question_test_relation={$testme_id} ORDER BY {$testme_order_by}");
 
     if ($testme_all_question) {
@@ -40,12 +40,6 @@ FROM {$wpdb->testme_questions} WHERE question_test_relation={$testme_id} ORDER B
             }
         }
 
-        var_dump('<pre>', $class_list, '</pre>');
-        // var_dump('<pre>', $testme_all_answers, '</pre>');
-        ?>
-
-
-        <?php
         // Залоголок и описание 
         if (get_option("testme_show_test_title") == 'yes') {
             print '<div class="testme_title"><h3>' . $testme_test_details->test_name . '</h3></div>';
@@ -64,6 +58,7 @@ FROM {$wpdb->testme_questions} WHERE question_test_relation={$testme_id} ORDER B
         foreach ($testme_all_question as $ques) {
             $i++;
 			$question_class = ( $ques->question_class ) ? $ques->question_class : '';
+            $question_result = ( $ques->question_result ) ? '<p><a href="'. $ques->question_result .'" target="_blank")>Показать результат</a></p>' : '';
 			if ($ques->question_multiple){ $inputType="checkbox"; $d_multi='data-multiple="1"';  } 
 			else {$inputType="radio"; $d_multi="";}
 			
@@ -94,7 +89,7 @@ FROM {$wpdb->testme_questions} WHERE question_test_relation={$testme_id} ORDER B
             if ($testme_test_details->test_only_reg == 1 && !is_user_logged_in()) {
                 echo '</ul>';
             }
-            echo "</div>";
+            echo $question_result . "</div>";
         }
         ?>
 

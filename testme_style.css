@@ -1,15 +1,5 @@
 /*  === Вывод теста === */
-.testme-bold{
-    font-weight: bold;
-}
 
-.testme-italic{
-    font-style: italic;
-}
-
-.testme-underline{
-    text-decoration: underline;
-}
 .testme_area {
 }
 
@@ -330,4 +320,24 @@ input[type="radio"]:checked + label span {
  
 .testme_code input[type=checkbox]:checked ~ .text1 {
     display: block;
+}
+
+/*Стили для вариантов ответов*/
+.testme-bold{
+    font-weight: bold;
+}
+
+.testme-italic{
+    font-style: italic;
+}
+
+.testme-underline{
+    text-decoration: underline;
+}
+
+.testme_question blockquote{
+    background-color: #f6f6f6;
+    border-left: 5px solid #202722;
+    margin: 10px 0;
+    padding: 10px 15px;
 }

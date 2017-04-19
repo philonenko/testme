@@ -155,7 +155,7 @@ background:#6ad2f4;
 
 /* Список вопросов, когда нет права проходить тест */
 .testme_asnwer_list {
-
+    
 }
 
 .testme_asnwer_list li {
@@ -340,4 +340,81 @@ input[type="radio"]:checked + label span {
     border-left: 5px solid #202722;
     margin: 10px 0;
     padding: 10px 15px;
+}
+
+
+/*Стили для страницы создания тестов юзерами*/
+
+.testme_question_block_for_users{
+    border: 1px solid #CCCCCC;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.testme_question_block_for_users .testme-icons-edit{
+    padding: 20px 0;
+}
+
+.testme_inside input,
+.testme_inside p{
+    margin: 0;
+    padding: 0;
+}
+
+.testme_question_block_for_users input{
+    display: inline-block;
+}
+
+.testme_question_block_for_users .testme_answer{
+    margin-bottom: 20px;
+}
+
+.testme_question_block_for_users .testme_answer input{
+    max-width: 77%;
+}
+
+.testme_question_block_for_users .testme_answer input:first-child{
+    max-width: 20%;
+    margin-right: 2%;
+}
+
+.testme_question_block_for_users>p:first-child{
+    background-color: #464646;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.testme_question_block_for_users .testme_question_block_for_users_inner,
+.testme_single_result .testme_single_result_inner{
+    padding: 20px 30px 20px 20px;
+}
+
+.testme_inside input[type="text"]{
+    padding: 5px 15px;
+}
+
+.testme_question_block_for_users .testme_question_block_for_users_inner input[type="image"]{
+    margin-right: 5px;
+}
+
+.testme_question_block_for_users .testme_question_block_for_users_inner input[type="checkbox"]{
+    margin-right: 8px;
+}
+
+.testme_test_results .testme_min_points,
+.testme_test_results .testme_max_points{
+    max-width: 20%;
+    display: inline-block;
+}
+
+.testme_test_results_header_info{
+    padding: 20px 30px 20px 20px;
+    border: 1px solid #CCCCCC;
+}
+
+.testme_single_result{
+    background-color: #F6F6F6;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
 }

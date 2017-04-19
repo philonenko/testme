@@ -13,7 +13,7 @@ $i = 1; ?>
 				<div class="testme_head_info">
 					<p><input type="text" name="test_name_new" id="test_name_new" placeholder="Название теста" /></p>
 					<p><?php echo getTestmeIcons(); ?></p>
-					<p><textarea name="" id="" cols="30" rows="10" placeholder="Описание теста"></textarea></p>
+					<p><textarea name="test_description" id="" cols="30" rows="10" placeholder="Описание теста"></textarea></p>
 					<p><input name="test_random_questions" id="test_random_questions" type="checkbox" value="1"><label for="test_random_questions">Выводить вопросы теста в случайном порядке.</label></p>
 					<p><input name="test_random_answers" id="test_random_answers" type="checkbox" value="1"><label for="test_random_answers">Выводить ответы к вопросам в случайном порядке.</label></p>
 				</div>
@@ -67,8 +67,7 @@ $i = 1; ?>
 			</div>
 		</div>
 		<p class="submit">
-			<input type="hidden" name="testme_id" />
-			<input type="hidden" name="testme_form_step" />
+			<input type="hidden" name="testme_users_test_create" value="yes" />
 			<input type="submit" name="submit" value="Сохранить" tabindex="4" />
 		</p>
 	</div>

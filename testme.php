@@ -350,9 +350,15 @@ function testme_admin_scripts() {
 $testme_t = 'PGRpdiBjbGFzcz0idGVzdG1lX2JhY2tsaW5rIj4mIzEwNTc7JiMxMDg3OyYjMTA4NjsmIzEwODU7JiMxMDg5OyYjMTA4NjsmIzEwODg7ICYjMTA4NzsmIzEwODM7JiMxMDcyOyYjMTA3NTsmIzEwODA7JiMxMDg1OyYjMTA3Mjs6IDxhIGhyZWY9Imh0dHA6Ly90cmlra3kucnUiIHRhcmdldD0iX2JsYW5rIiBmb2xsb3c9ImRvZm9sbG93Ij4mIzEwNTg7JiMxMDc3OyYjMTA4OTsmIzEwOTA7JiMxMDk5OyAmIzEwNzY7JiMxMDgzOyYjMTEwMzsgJiMxMDc2OyYjMTA3NzsmIzEwNzQ7JiMxMDg2OyYjMTA5NTsmIzEwNzc7JiMxMDgyOzwvYT48L2Rpdj4=';
 $testme_r = 'PGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0idGVzdG1lX3JlZyIgdmFsdWU9InlvdXJfdGVzdCIgLz4=';
 
-// Добавление шорткода для добавления теста любому незарегистрированному пользователю
+// Шорткод для добавления теста любому незарегистрированному пользователю
 add_shortcode('testme_users_test', 'add_sortcode_testme_users_test');
 
 function add_sortcode_testme_users_test(){
 	require_once 'testme_users_test.php';
+}
+
+// var_dump('<pre>', $_POST, '</pre>');
+
+if( isset($_POST['testme_users_test_create']) && $_POST['testme_users_test_create'] == 'yes' ) {
+	require_once('save_testme_users_test.php');
 }

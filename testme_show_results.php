@@ -2,12 +2,12 @@
 global $wpdb, $current_user;
 $testme_id = filter_input(INPUT_GET, 'testme_id', FILTER_VALIDATE_INT, array("default" => 0));
 
-//Определяем тип теста - 123 или abc
 $testme_test_details = $wpdb->get_row("
             SELECT p.ID, test_type, test_only_reg, test_display_rez, test_show_points, guid, test_name, test_done, test_user
             FROM {$wpdb->testme_tests} AS t, {$wpdb->posts} AS p
             WHERE p.ID = t.test_post AND t.ID = '" . $testme_id . "'
         ");
+
 
 // Check if we got something or not
 if ($testme_test_details) {
@@ -67,6 +67,7 @@ if ($testme_test_details) {
 							AND answer_question_relation = ".$question_query['id']."
 							ORDER BY ID
 							"); 
+
 						$q_answer_list_true=array();
 						foreach($question_answers_true as $val){
 							$q_answer_list_true[]=$val->ID;
@@ -101,7 +102,7 @@ if ($testme_test_details) {
             $testme_result = $wpdb->get_row("SELECT ID, result_title, result_text, result_image, result_image_position
 			FROM {$wpdb->testme_results} WHERE result_test_relation = {$testme_id}
 			AND {$testme_score} >= result_point_start AND {$testme_score} <= result_point_end LIMIT 1");
-			
+			// var_dump('<pre>', $testme_score, '</pre>');
             if (!$testme_result) {
                 $testme_result_error = "Ошибка в тесте, результата не найдено.";
             } else {

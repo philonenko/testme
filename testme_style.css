@@ -234,10 +234,6 @@ background:#6ad2f4;
 
 /***Стили для checkbox И Radio***/
 
-
-input[type="checkbox"] {
-    display:none;
-}
 input[type="checkbox"] + label span {
     display:inline-block;
     width:18px;
@@ -345,6 +341,47 @@ input[type="radio"]:checked + label span {
 
 /*Стили для страницы создания тестов юзерами*/
 
+.testme_inside_form{
+    color: #464646;
+    background-color: transparent;
+}
+
+.testme_inside_form a{
+    color: #464646;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.testme_inside_form a:hover{
+    text-decoration: none;
+}
+
+.testme_inside_form p{
+    margin: 0;
+    padding: 0;
+}
+
+#testme_step4_ready{
+    background-color: #464646;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+#test_name_new{
+    margin-bottom: 20px;
+}
+
+.testme_inside_form .testme_head_info{
+    margin-bottom: 20px;
+
+}
+
+.testme_inside_form .testme-icons-edit input[type="image"]{
+    margin-right: 5px;
+}
+
 .testme_question_block_for_users{
     border: 1px solid #CCCCCC;
     font-size: 16px;
@@ -365,12 +402,16 @@ input[type="radio"]:checked + label span {
     display: inline-block;
 }
 
+.testme_head_info input[type="checkbox"]{
+    margin-right: 20px;
+}
+
 .testme_question_block_for_users .testme_answer{
     margin-bottom: 20px;
 }
 
 .testme_question_block_for_users .testme_answer input{
-    max-width: 77%;
+    max-width: 70%;
 }
 
 .testme_question_block_for_users .testme_answer input:first-child{
@@ -387,6 +428,14 @@ input[type="radio"]:checked + label span {
 .testme_question_block_for_users .testme_question_block_for_users_inner,
 .testme_single_result .testme_single_result_inner{
     padding: 20px 30px 20px 20px;
+}
+
+.testme_question_block_for_users_inner p{
+    font-size: 16px;
+}
+
+.testme_question_block_for_users_inner .testme_question{
+    margin-bottom: 20px;
 }
 
 .testme_inside input[type="text"]{
@@ -417,4 +466,17 @@ input[type="radio"]:checked + label span {
     border-bottom: 1px solid #CCCCCC;
     border-left: 1px solid #CCCCCC;
     border-right: 1px solid #CCCCCC;
+}
+
+.testme_avesome_icons{
+    cursor: pointer;
+    font-size: 20px;
+    float: right;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.testme_close_answer{
+    color: #E04242;
 }

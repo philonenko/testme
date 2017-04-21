@@ -16,6 +16,7 @@
             'testme_code_for_forum' => FILTER_SANITIZE_STRING,
             'testme_code_for_blog' => FILTER_SANITIZE_STRING,
             'testme_edit_category' => FILTER_VALIDATE_INT,
+            'testme_edit_user_category' => FILTER_VALIDATE_INT,
             'testme_edit_per_page' => FILTER_VALIDATE_INT,
             'testme_stat_per_page' => FILTER_VALIDATE_INT,
             'testme_stat_allow' => FILTER_SANITIZE_STRING,
@@ -130,6 +131,9 @@
                         <p><input name="testme_edit_category" type="text"  id="testme_edit_category"
                                   value="<?php echo get_option("testme_edit_category") ?>" size="3" />
                             <label for="testme_edit_category">Номер рубрики по умолчанию.</label></p>
+                        <p><input name="testme_edit_user_category" type="text"  id="testme_edit_user_category"
+                                  value="<?php echo get_option("testme_edit_user_category") ?>" size="3" />
+                            <label for="testme_edit_user_category">Номер рубрики добавленных пользовательских тестов.</label></p>
                         <p><input name="testme_edit_per_page" type="text"  id="testme_edit_per_page"
                                   value="<?php echo get_option("testme_edit_per_page") ?>" size="3" />
                             <label for="testme_edit_per_page">Количество тестов на одной странице в панеле управления тестами.</label></p>

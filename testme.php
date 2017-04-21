@@ -43,6 +43,7 @@ function testme_add_options() {
     add_option('testme_code_for_forum', 'yes');
     add_option('testme_code_for_blog', 'yes');
     add_option('testme_edit_category', '1');
+    add_option('testme_edit_user_category', '1');
     add_option('testme_edit_per_page', '30');
     add_option('testme_stat_per_page', '10');
     add_option('testme_stat_allow', 'yes');
@@ -262,6 +263,14 @@ function testme_css_admin($hook_suffix) {
     }
 }
 
+/* === Добавление font-awesome-4.7.0 === */
+
+add_action('wp_enqueue_scripts', 'testme_font_awesome');
+
+function testme_font_awesome() {
+   wp_enqueue_style('testme-font-awesome', plugins_url('testme/font-awesome-4.7.0/css/font-awesome.min.css'));
+}
+
 add_action('wp_head', 'testme_css_theme');
 
 function testme_css_theme() {
@@ -358,6 +367,40 @@ function add_sortcode_testme_users_test(){
 }
 
 // var_dump('<pre>', $_POST, '</pre>');
+// Создает запись с шорткодом
+function set_test_me_in_post ($testme_id) {
+  // var_dump('<pre>', $testme_id,'</pre>');
+    // Создаем запись
+  global $wpdb;
+  // Получаем данные из таблицы тестов
+  $testme_test_details = $wpdb->get_row("SELECT test_name, test_description, test_user
+    FROM `{$wpdb->testme_tests}` WHERE ID = `{$testme_id}`");
+  // var_dump('<pre>', $testme_test_details,'</pre>');
+  /*if ($testme_test_details->test_description != '') {
+    $testme_exerpt = trim(strip_tags($testme_test_details->test_description));
+  } else {
+    $testme_exerpt = '';
+  }*/
+  
+  // Добавление записи
+  $post_for_test_array = array(
+    'post_author' => 1,
+    'post_content' => '[TESTME ' . $testme_id . ']',
+    'post_title' => $testme_test_details->test_name,
+    // 'post_excerpt' => $testme_exerpt,
+    'post_status' => 'publish',
+    'ping_status' => 'closed',
+    'post_category' => array(get_option("testme_edit_user_category", 1))
+    );
+
+  $testme_post_id = wp_insert_post($post_for_test_array);        
+
+  // Добавление номера записи в таблицу с тестом
+  $wpdb->query("UPDATE {$wpdb->testme_tests} SET test_post = '{$testme_post_id}'
+    WHERE ID = {$testme_id} LIMIT 1;");
+
+  print '<div class="testme_step4_status4">Тест одобрен, соответствующая запись создана. Теперь ее надо отредактировать и опубликовать.</div>';
+}
 
 if( isset($_POST['testme_users_test_create']) && $_POST['testme_users_test_create'] == 'yes' ) {
 	require_once('save_testme_users_test.php');
